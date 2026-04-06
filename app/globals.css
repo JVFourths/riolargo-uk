@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #FAF7F0;
+  color: #1a1a1a;
+}
+
+.award-badge {
+  @apply inline-flex items-center gap-1.5 bg-olive-50 border border-olive-200 text-olive-700 text-xs font-medium px-2.5 py-1 rounded-full;
+}
+
+.btn-primary {
+  @apply bg-olive-700 hover:bg-olive-800 text-white font-semibold px-6 py-3 rounded-lg transition-all duration-200 inline-block;
+}
+
+.btn-outline {
+  @apply border-2 border-olive-700 text-olive-700 hover:bg-olive-700 hover:text-white font-semibold px-6 py-3 rounded-lg transition-all duration-200 inline-block;
+}
