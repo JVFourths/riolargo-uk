@@ -2,44 +2,56 @@ import Link from 'next/link'
 
 export default function Footer() {
   return (
-    <footer className="bg-olive-900 text-olive-200 mt-20">
-      <div className="max-w-6xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div>
-          <div className="flex items-center gap-2 mb-4">
-            <div className="w-7 h-7 bg-gold rounded-full flex items-center justify-center text-olive-900 font-bold text-xs">RL</div>
-            <span className="font-semibold text-white">RIO LARGO</span>
-          </div>
-          <p className="text-sm leading-relaxed text-olive-300">
-            Award-winning extra virgin olive oil from the Breede River Valley, South Africa. Imported exclusively for the UK by Sidwell's.
+    <footer className="mt-32 bg-mountain-900 text-limestone-50">
+      <div className="container-x py-20 grid grid-cols-1 md:grid-cols-12 gap-12">
+        {/* Brand */}
+        <div className="md:col-span-5">
+          <p className="eyebrow !text-fynbos-500 mb-4">Rio Largo · UK</p>
+          <h2 className="font-display text-3xl md:text-4xl text-limestone-50 leading-tight max-w-md mb-6">
+            Award-winning olive oil from South Africa&rsquo;s Breede River Valley.
+          </h2>
+          <p className="text-limestone-50/70 max-w-prose text-base leading-relaxed">
+            Hand-picked. Cold-pressed within hours. Internationally recognised in New York,
+            Japan, Amsterdam, Italy and Dubai. Imported exclusively for the UK by Sidwell&rsquo;s.
           </p>
         </div>
 
-        <div>
-          <h4 className="text-white font-semibold mb-4">Quick Links</h4>
-          <ul className="space-y-2 text-sm">
-            <li><Link href="/shop" className="hover:text-gold transition-colors">Shop</Link></li>
-            <li><Link href="/#story" className="hover:text-gold transition-colors">Our Story</Link></li>
-            <li><Link href="/#awards" className="hover:text-gold transition-colors">Awards</Link></li>
-            <li><Link href="/shipping" className="hover:text-gold transition-colors">Shipping & Returns</Link></li>
+        {/* Links */}
+        <div className="md:col-span-3 md:col-start-7">
+          <p className="eyebrow !text-fynbos-500 mb-5">Explore</p>
+          <ul className="space-y-3 text-limestone-50/85">
+            <li><Link href="/shop" className="hover:text-fynbos-500 transition-colors duration-200 cursor-pointer">Shop</Link></li>
+            <li><Link href="/#advantage" className="hover:text-fynbos-500 transition-colors duration-200 cursor-pointer">The Southern Advantage</Link></li>
+            <li><Link href="/#story" className="hover:text-fynbos-500 transition-colors duration-200 cursor-pointer">Our Story</Link></li>
+            <li><Link href="/#awards" className="hover:text-fynbos-500 transition-colors duration-200 cursor-pointer">Awards</Link></li>
+            <li><Link href="/shipping" className="hover:text-fynbos-500 transition-colors duration-200 cursor-pointer">Shipping &amp; Returns</Link></li>
           </ul>
         </div>
 
-        <div>
-          <h4 className="text-white font-semibold mb-4">Contact</h4>
-          <ul className="space-y-2 text-sm text-olive-300">
-            <li>orders@riolargo.co.uk</li>
-            <li className="pt-2">
-              <span className="text-olive-400 text-xs">Free UK delivery on orders over £40</span>
+        {/* Contact */}
+        <div className="md:col-span-3">
+          <p className="eyebrow !text-fynbos-500 mb-5">Contact</p>
+          <ul className="space-y-3 text-limestone-50/85">
+            <li>
+              <a href="mailto:orders@riolargo.co.uk" className="hover:text-fynbos-500 transition-colors duration-200 cursor-pointer">
+                orders@riolargo.co.uk
+              </a>
             </li>
-            <li className="pt-1">
-              <span className="text-olive-400 text-xs">Dispatched within 1-2 working days</span>
+            <li className="text-sm text-limestone-50/60 pt-2">
+              Free UK delivery over &pound;40
+            </li>
+            <li className="text-sm text-limestone-50/60">
+              Dispatched in 1&ndash;2 working days
             </li>
           </ul>
         </div>
       </div>
 
-      <div className="border-t border-olive-700 py-4 text-center text-xs text-olive-500">
-        <p>© {new Date().getFullYear()} Rio Largo UK. Imported by Sidwell's. All rights reserved.</p>
+      <div className="border-t border-limestone-50/10">
+        <div className="container-x py-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-xs text-limestone-50/50">
+          <p>&copy; {new Date().getFullYear()} Rio Largo UK &middot; Imported by Sidwell&rsquo;s</p>
+          <p>Hand-picked. Cold-pressed. Southern hemisphere harvest.</p>
+        </div>
       </div>
     </footer>
   )

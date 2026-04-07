@@ -2,24 +2,89 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
-html { scroll-behavior: smooth; }
-
-body {
-  font-family: 'Inter', sans-serif;
-  background-color: #FAF7F0;
-  color: #1a1a1a;
+:root {
+  --color-mountain:  #1A2317;
+  --color-shadow:    #0C0F0A;
+  --color-limestone: #F7F3EE;
+  --color-fynbos:    #C9A84C;
+  --color-sage:      #6B7B5A;
 }
 
-.award-badge {
-  @apply inline-flex items-center gap-1.5 bg-olive-50 border border-olive-200 text-olive-700 text-xs font-medium px-2.5 py-1 rounded-full;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    background-color: var(--color-limestone);
+    color: var(--color-shadow);
+    font-family: var(--font-inter), system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    font-weight: 400;
+  }
+  h1, h2, h3, h4, h5 {
+    font-family: var(--font-playfair), Georgia, serif;
+    color: var(--color-mountain);
+    font-feature-settings: "kern", "liga", "dlig";
+  }
+  ::selection {
+    background: var(--color-fynbos);
+    color: var(--color-mountain);
+  }
+  *:focus-visible {
+    outline: 2px solid var(--color-sage);
+    outline-offset: 3px;
+  }
 }
 
-.btn-primary {
-  @apply bg-olive-700 hover:bg-olive-800 text-white font-semibold px-6 py-3 rounded-lg transition-all duration-200 inline-block;
+@layer components {
+  .container-x {
+    @apply max-w-container mx-auto px-4 sm:px-6 lg:px-12;
+  }
+  .eyebrow {
+    @apply text-eyebrow uppercase text-sage-600 inline-block;
+    font-family: var(--font-inter), system-ui, sans-serif;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center bg-fynbos-500 text-mountain-900 font-semibold px-8 py-4 rounded-sharp;
+    @apply transition-colors duration-200 ease-out hover:bg-fynbos-600 cursor-pointer;
+    letter-spacing: 0.01em;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center bg-transparent text-mountain-900 border border-mountain-900 font-semibold px-8 py-4 rounded-sharp;
+    @apply transition-colors duration-200 ease-out hover:bg-mountain-900 hover:text-limestone cursor-pointer;
+    border-width: 1.5px;
+    letter-spacing: 0.01em;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 text-mountain-900 font-medium transition-colors duration-200 hover:text-fynbos-600 cursor-pointer;
+  }
 }
 
-.btn-outline {
-  @apply border-2 border-olive-700 text-olive-700 hover:bg-olive-700 hover:text-white font-semibold px-6 py-3 rounded-lg transition-all duration-200 inline-block;
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .text-pretty  { text-wrap: pretty; }
+}
+
+/* Subtle scroll reveals — only fade + 8px translate, per MASTER.md */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 600ms cubic-bezier(0.16, 1, 0.3, 1), transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

@@ -8,3 +8,6 @@ node_modules/
 data/
 *.db
 .claude/
+
+# scraped third-party assets — re-downloadable, not source of truth
+public/images/source/
