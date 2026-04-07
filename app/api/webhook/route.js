@@ -1,13 +1,12 @@
 import Stripe from 'stripe'
-import { getRequestContext } from '@cloudflare/next-on-pages'
+import { getCloudflareContext } from '@opennextjs/cloudflare'
 import { createOrder, deductStock, getLowStockItems, getOrderBySession } from '../../../lib/db'
 import { sendOrderConfirmation, sendAdminNewOrder, sendLowStockAlert } from '../../../lib/email'
 import { getProductById } from '../../../lib/products'
-export const runtime = 'edge'
 export async function POST(req) {
   const body = await req.text()
   const sig = req.headers.get('stripe-signature')
-  const { env } = getRequestContext()
+  const { env } = getCloudflareContext()
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: '2023-10-16' })
   let event
   try { event = await stripe.webhooks.constructEventAsync(body, sig, process.env.STRIPE_WEBHOOK_SECRET) }

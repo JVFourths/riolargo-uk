@@ -1,5 +1,10 @@
 node_modules/
 .next/
+.open-next/
+.vercel/
+.wrangler/
 .env.local
+.dev.vars
 data/
 *.db
+.claude/

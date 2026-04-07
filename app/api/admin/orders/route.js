@@ -1,17 +1,16 @@
 import { NextResponse } from 'next/server'
-import { getRequestContext } from '@cloudflare/next-on-pages'
+import { getCloudflareContext } from '@opennextjs/cloudflare'
 import { getAllOrders, updateOrderStatus, updateOrderNotes } from '../../../../lib/db'
 import { sendDispatchNotification } from '../../../../lib/email'
-export const runtime = 'edge'
 function isAuthed(req) { return req.cookies.get('admin_token')?.value === process.env.ADMIN_PASSWORD }
 export async function GET(req) {
   if (!isAuthed(req)) return NextResponse.json({ error: 'Unauthorised' }, { status: 401 })
-  const { env } = getRequestContext()
+  const { env } = getCloudflareContext()
   return NextResponse.json({ orders: await getAllOrders(env.DB) })
 }
 export async function PATCH(req) {
   if (!isAuthed(req)) return NextResponse.json({ error: 'Unauthorised' }, { status: 401 })
-  const { env } = getRequestContext()
+  const { env } = getCloudflareContext()
   const { id, status, tracking, notes } = await req.json()
   if (notes !== undefined) await updateOrderNotes(env.DB, id, notes)
   if (status) {

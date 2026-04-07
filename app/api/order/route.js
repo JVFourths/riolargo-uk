@@ -1,9 +1,8 @@
 import { NextResponse } from 'next/server'
-import { getRequestContext } from '@cloudflare/next-on-pages'
+import { getCloudflareContext } from '@opennextjs/cloudflare'
 import { getOrderBySession } from '../../../lib/db'
-export const runtime = 'edge'
 export async function GET(req) {
-  const { env } = getRequestContext()
+  const { env } = getCloudflareContext()
   const { searchParams } = new URL(req.url)
   const sessionId = searchParams.get('session_id')
   if (!sessionId) return NextResponse.json({ error: 'Missing session_id' }, { status: 400 })

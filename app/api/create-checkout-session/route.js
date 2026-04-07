@@ -1,15 +1,14 @@
 import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
 import { getProductById } from '../../../lib/products'
-import { getRequestContext } from '@cloudflare/next-on-pages'
+import { getCloudflareContext } from '@opennextjs/cloudflare'
 import { getStock } from '../../../lib/db'
-export const runtime = 'edge'
 const SHIPPING_THRESHOLD = 4000
 const SHIPPING_COST = 495
 export async function POST(req) {
   try {
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: '2023-10-16' })
-    const { env } = getRequestContext()
+    const { env } = getCloudflareContext()
     const { items } = await req.json()
     if (!items || items.length === 0) return NextResponse.json({ error: 'No items' }, { status: 400 })
     const lineItems = []
