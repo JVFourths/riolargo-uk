@@ -11,3 +11,6 @@ data/
 
 # scraped third-party assets — re-downloadable, not source of truth
 public/images/source/
+
+# screenshot audit output — regenerate via scripts/screenshot-mobile.mjs
+audit/

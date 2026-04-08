@@ -44,51 +44,45 @@ export default function Home() {
       {/* ============ HERO ============ */}
       <section className="relative isolate min-h-[88vh] flex items-end overflow-hidden">
         <Image
-          src="/images/hero-breede-valley-1920w.webp"
-          alt="Olive estate at golden hour in South Africa's Breede River Valley, with rows of silver-green olive trees stretching toward distant Cape mountains"
+          src="/images/hero-twilight-1920w.webp"
+          alt="Olive grove in South Africa's Breede River Valley at twilight, silhouetted against a dusk sky over the Cape mountains"
           fill
           priority
           sizes="100vw"
           className="object-cover -z-10"
         />
-        {/* Bottom-up scrim — guarantees text legibility regardless of image */}
+        {/* Strong overlay — guarantees white text legibility */}
         <div
           className="absolute inset-0 -z-10"
           style={{
             background:
-              'linear-gradient(180deg, rgba(12,15,10,0.35) 0%, rgba(12,15,10,0.10) 25%, rgba(12,15,10,0.60) 60%, rgba(12,15,10,0.92) 100%)',
-          }}
-          aria-hidden="true"
-        />
-        {/* Left vignette — extra contrast under the headline */}
-        <div
-          className="absolute inset-0 -z-10"
-          style={{
-            background:
-              'linear-gradient(90deg, rgba(12,15,10,0.55) 0%, rgba(12,15,10,0.25) 40%, rgba(12,15,10,0.0) 70%)',
+              'linear-gradient(180deg, rgba(12,15,10,0.45) 0%, rgba(12,15,10,0.30) 30%, rgba(12,15,10,0.80) 75%, rgba(12,15,10,0.95) 100%)',
           }}
           aria-hidden="true"
         />
 
-        <div className="container-x relative pb-20 md:pb-28 pt-32 text-limestone-50">
-          <p className="eyebrow !text-fynbos-400 mb-6 drop-shadow-[0_1px_8px_rgba(12,15,10,0.6)]">
+        <div className="container-x relative pb-20 md:pb-28 pt-32 w-full text-limestone-50">
+          <p className="eyebrow !text-limestone-50 mb-6">
             From the Breede River Valley &middot; est. 2010
           </p>
-          <h1 className="font-display text-display font-bold max-w-4xl text-balance leading-[1.05] mb-8 drop-shadow-[0_2px_24px_rgba(12,15,10,0.55)]">
-            Fresh from the southern harvest.<br/>
-            <span className="text-fynbos-400">On UK tables</span> before the northern oils are bottled.
+          <h1 className="font-display font-bold leading-[0.98] tracking-tight max-w-3xl mb-8 text-limestone-50 text-[clamp(40px,7vw,84px)] text-balance">
+            Pressed this year.{' '}
+            <em className="italic font-normal text-limestone-50">Not last.</em>
           </h1>
-          <p className="text-lg md:text-xl text-limestone-50/95 max-w-2xl leading-relaxed mb-10 drop-shadow-[0_1px_12px_rgba(12,15,10,0.6)]">
-            Hand-picked, cold-pressed extra virgin olive oil from South Africa&rsquo;s
-            Breede River Valley. Gold medals in eight countries. One harvest a year &mdash; ours,
-            arriving when yours is six months old.
+          <p className="text-lg md:text-xl text-limestone-50 max-w-xl leading-relaxed mb-10">
+            Northern olive oils on UK shelves are six to twelve months old by midwinter.
+            Rio Largo&rsquo;s southern hemisphere harvest means fresh-pressed oil arrives
+            exactly when theirs is stale.
           </p>
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-wrap gap-3">
             <Link href="/shop" className="btn-primary">
               Shop the Oil
               <ArrowRight size={18} strokeWidth={1.5} className="ml-2" />
             </Link>
-            <Link href="#advantage" className="btn-secondary !border-limestone-50 !text-limestone-50 hover:!bg-limestone-50 hover:!text-mountain-900">
+            <Link
+              href="#advantage"
+              className="btn-secondary !border-limestone-50/50 !text-limestone-50 hover:!bg-limestone-50 hover:!text-mountain-900"
+            >
               Why Fresher
             </Link>
           </div>
