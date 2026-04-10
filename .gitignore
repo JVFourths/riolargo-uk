@@ -14,3 +14,9 @@ public/images/source/
 
 # screenshot audit output — regenerate via scripts/screenshot-mobile.mjs
 audit/
+
+# Playwright MCP snapshots
+.playwright-mcp/
+
+# Dev screenshots (root-level PNGs)
+/*.png
