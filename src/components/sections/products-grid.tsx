@@ -9,33 +9,7 @@ import {
   smoothTransition,
 } from "@/components/motion-config";
 import { ProductCard3D } from "@/components/ui/product-card-3d";
-
-const products = [
-  {
-    slug: "botanicals",
-    name: "\"Botanicals\"",
-    description: "A celebration of the Cape's indigenous flora. Award-winning extra virgin olive oil, cold extracted.",
-    price: "13.00",
-    image: "/images/bottle-500ml-800w.webp",
-    size: "500ml",
-  },
-  {
-    slug: "belle-fiore",
-    name: "\"Belle Fiore\"",
-    description: "Beautiful blooms adorn this rich, full-bodied extra virgin olive oil. Cold extracted for pure flavour.",
-    price: "13.00",
-    image: "/images/bottle-1l-800w.webp",
-    size: "500ml",
-  },
-  {
-    slug: "karoo-splendor",
-    name: "\"Karoo Splendor\"",
-    description: "Inspired by the rugged beauty of the Karoo. Award-winning extra virgin olive oil, cold extracted.",
-    price: "13.00",
-    image: "/images/bottle-2l-800w.webp",
-    size: "500ml",
-  },
-];
+import { products } from "@/lib/products";
 
 export function ProductsGrid() {
   return (
@@ -54,11 +28,11 @@ export function ProductsGrid() {
             The Collection
           </span>
           <h2 className="mt-4 font-display text-4xl md:text-5xl lg:text-6xl font-bold">
-            Choose Your Bottle
+            Three Labels, One Standard
           </h2>
           <p className="mt-6 text-text-muted max-w-xl mx-auto text-lg">
-            Three designs, one uncompromising standard. Every drop is cold-extracted
-            from hand-harvested olives within hours of picking.
+            Each 500ml bottle is cold-extracted from hand-harvested olives within
+            hours of picking. Choose the character that matches your kitchen.
           </p>
         </m.div>
 
@@ -79,10 +53,7 @@ export function ProductsGrid() {
               <Link href="/shop" className="group block cursor-pointer">
                 <div className="relative border border-border/50 overflow-visible transition-all duration-500 group-hover:border-accent/30 group-hover:shadow-[0_0_60px_rgba(201,168,76,0.06)]">
                   {/* 3D bottle */}
-                  <ProductCard3D
-                    image={product.image}
-                    alt={product.name}
-                  />
+                  <ProductCard3D image={product.image} alt={product.name} />
 
                   {/* Size badge */}
                   <div className="absolute top-4 right-4 z-10 px-3 py-1 bg-accent/10 border border-accent/20 text-accent text-xs font-semibold tracking-wider uppercase backdrop-blur-sm">
@@ -92,17 +63,20 @@ export function ProductsGrid() {
                   {/* Content */}
                   <div className="p-6 bg-bg-surface/80 backdrop-blur-sm border-t border-border/50">
                     <h3 className="font-display text-xl font-bold group-hover:text-accent transition-colors duration-200">
-                      {product.name}
+                      {product.shortName}
                     </h3>
-                    <p className="mt-2 text-sm text-text-muted leading-relaxed">
-                      {product.description}
+                    <p className="mt-1 text-xs uppercase tracking-wider text-olive-light">
+                      {product.flavourNotes}
+                    </p>
+                    <p className="mt-3 text-sm text-text-muted leading-relaxed">
+                      {product.tagline}
                     </p>
                     <div className="mt-6 flex items-center justify-between">
                       <span className="text-2xl font-display font-bold text-accent">
                         &pound;{product.price}
                       </span>
                       <span className="text-xs uppercase tracking-widest text-text-muted group-hover:text-accent transition-colors duration-200">
-                        View Details &rarr;
+                        View &amp; Order &rarr;
                       </span>
                     </div>
                   </div>

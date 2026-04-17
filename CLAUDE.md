@@ -1,149 +1,86 @@
-# Rio Largo UK - Claude Code Handover
+# Rio Largo UK — Claude Code Handover
 
 ## What this project is
-A Next.js e-commerce website for Rio Largo award-winning South African olive oil,
-deployed on Cloudflare Pages for a retired, non-technical father-in-law to manage.
+Static marketing + pre-order site for Rio Largo award-winning South African olive oil.
+Owner is a retired, non-technical father-in-law; site is built so he can take orders
+via email confirmations and manage dispatch manually.
 
-## Current status: BUILD FAILING on Cloudflare Pages
-The site code is complete and pushed to GitHub. The Cloudflare Pages build is failing.
-Your job is to fix the build and get the site live.
+## Stack
+- Next.js 14 App Router, `output: "export"` (fully static)
+- TypeScript strict, Tailwind CSS v4 (via `@theme`), `motion/react` (Framer Motion lazy)
+- Deployed to Cloudflare Pages: https://riolargo-uk.pages.dev/
+- No database, no server runtime. All interactivity is client-side.
+- Form submissions POST to Formspree — see `src/lib/endpoints.ts`.
 
-## Repository
-GitHub: https://github.com/JVFourths/riolargo-uk
-Branch: master
-Local copy: C:\Users\Fish\Downloads\riolargo-deploy\riolargo-uk
-
-## Cloudflare account
-Account: johan@jkmv.co.uk
-Account ID: d5fbd486ce2e2f4c99315afa66198462
-Dashboard: https://dash.cloudflare.com/d5fbd486ce2e2f4c99315afa66198462/pages/view/riolargo-uk
-
-## Infrastructure already created (DO NOT recreate)
-- Cloudflare Pages project: riolargo-uk (connected to GitHub, auto-deploys on push)
-- Cloudflare D1 database: riolargo-db
-  - ID: 7306d08a-b14a-45e5-9d6a-0777035345e6
-  - Tables: orders, inventory (already created and seeded with 3 products)
-
-## The build error
-```
-npm error ERESOLVE unable to resolve dependency tree
-npm error Found: next@undefined
-npm error peer next@">=14.3.0 && <=15.5.2" from @cloudflare/next-on-pages@1.13.16
-```
-
-## What has been tried
-1. Deleted package-lock.json (commit 94946ee) - but npm ci requires lock file
-2. Added .npmrc with legacy-peer-deps=true (commit 5a93d1c)
-
-## Likely remaining issue
-Cloudflare Pages uses `npm ci` by default which REQUIRES package-lock.json.
-Without it, the build will fail with "Missing package-lock.json".
-
-## How to fix
-Option A (recommended): Generate a fresh package-lock.json locally and push it
-```bash
-cd C:\Users\Fish\Downloads\riolargo-deploy\riolargo-uk
-npm install --legacy-peer-deps
-git add package-lock.json
-git commit -m "fix: add fresh package-lock.json for Cloudflare build"
-git push origin master
-```
-
-Option B: Change Cloudflare Pages build settings to use npm install instead of npm ci
-- Go to Pages project > Settings > Builds & deployments
-- Set build command to: npm install --legacy-peer-deps && npx @cloudflare/next-on-pages
-- Or set environment variable NPM_FLAGS=--legacy-peer-deps
-
-Option C: Pin next to exact version in package.json that satisfies peer deps
-- next must be >=14.3.0 and <=15.5.2
-- Change "next": "^14.3.0" to "next": "14.3.0" in package.json
-
-## Tech stack
-- Next.js 14 (App Router)
-- Cloudflare Pages (edge runtime, NOT Node.js)
-- Cloudflare D1 (SQLite database - replaces better-sqlite3)
-- Stripe (payments)
-- Resend (emails)
-- Tailwind CSS v3
-
-## IMPORTANT: This is edge runtime, not Node.js
-All API routes have `export const runtime = 'edge'`
-All DB calls use Cloudflare D1 binding: `const { env } = getRequestContext(); env.DB`
-Do NOT use better-sqlite3 or any Node.js-only packages
-
-## Build command (in Cloudflare Pages settings)
-Build command: npx @cloudflare/next-on-pages
-Output directory: .vercel/output/static
-Node version: 22
-
-## D1 binding required
-In Cloudflare Pages Settings > Bindings > D1 Database:
-- Variable name: DB
-- Database: riolargo-db
-
-## Environment variables needed (not yet set in Cloudflare)
-After the build succeeds, add these in Pages > Settings > Environment Variables:
-- STRIPE_SECRET_KEY (from stripe.com dashboard)
-- NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY (from stripe.com dashboard)
-- STRIPE_WEBHOOK_SECRET (from Stripe webhook settings)
-- RESEND_API_KEY (from resend.com)
-- FROM_EMAIL = orders@riolargo.co.uk
-- ADMIN_EMAIL = (father-in-law email address)
-- ADMIN_PASSWORD = (choose a strong password for the admin panel)
-- NEXT_PUBLIC_SITE_URL = https://riolargo-uk.pages.dev (update when domain bought)
-
-## Admin panel
-Once live, the admin panel is at: https://riolargo-uk.pages.dev/admin
-Password protected. Father-in-law uses it to:
-- View orders (automatically created when Stripe payment completes)
-- Mark orders as dispatched (triggers automatic customer email with tracking)
-- Update stock levels when new shipment arrives from South Africa
-
-## What the site does automatically
-- Customer orders on website
-- Stripe processes payment
-- Stripe webhook fires -> order created in D1 DB, stock deducted, confirmation email sent
-- Father-in-law gets new order notification email
-- He packs and posts, enters tracking number in admin panel
-- Customer automatically gets dispatch email with Royal Mail tracking link
-- Low stock alert sent automatically when stock drops below threshold
-
-## GitHub credentials
-GitHub CLI is installed and authenticated as JVFourths
-Token: run `gh auth token` to get it
+## Repo + infra
+- GitHub: https://github.com/JVFourths/riolargo-uk (branch `master`)
+- Cloudflare account: johan@jkmv.co.uk — account ID `d5fbd486ce2e2f4c99315afa66198462`
+- Cloudflare Pages project: `riolargo-uk` (auto-deploys from GitHub push)
+- Build command: `npx next build` → output in `out/`
+- Publish directory: `out`
 
 ## File structure
-app/
-  page.js           - Homepage
-  shop/page.js      - Shop page
-  product/[slug]/page.js  - Product detail + buy button
-  order-success/page.js   - Post-payment confirmation
-  shipping/page.js  - Shipping policy
-  admin/page.js     - Admin dashboard (password protected)
-  api/
-    create-checkout-session/route.js  - Creates Stripe session
-    webhook/route.js                  - Handles Stripe payment confirmation
-    order/route.js                    - Order lookup for success page
-    admin/
-      login/route.js      - Admin auth
-      orders/route.js     - List/update orders
-      inventory/route.js  - Get/update stock
-lib/
-  products.js  - Product catalogue (3 SKUs hardcoded)
-  db.js        - Cloudflare D1 database functions
-  email.js     - Resend email functions
-  auth.js      - Admin auth helper
+```
+src/
+  app/
+    page.tsx                  Homepage (Hero + Products + About + Awards + CTA)
+    layout.tsx                Root layout, fonts, MotionProvider, Header, Footer
+    globals.css               Tailwind v4 @theme tokens + base + utilities
+    shop/
+      page.tsx                Server component — exports metadata
+      shop-content.tsx        Client UI
+    about/{page.tsx,about-content.tsx}
+    contact/{page.tsx,contact-content.tsx}
+    shipping/{page.tsx,shipping-content.tsx}
+  components/
+    layout/{header,footer}.tsx
+    sections/                 Homepage sections
+      hero.tsx
+      products-grid.tsx       Reads src/lib/products.ts
+      about-section.tsx
+      awards.tsx
+      cta-section.tsx
+    ui/
+      product-card-3d.tsx     Mouse-tracked 3D tilt card
+      waitlist-form.tsx       Shared pre-order + notify-me form
+    motion-config.tsx         Shared motion variants (fadeUp, staggerContainer, etc.)
+  lib/
+    products.ts               Single source of truth for the 3 SKUs + waitlist items
+    endpoints.ts              Formspree form endpoint (placeholder ID to replace)
+    utils.ts                  cn() helper
+public/images/                All product + estate imagery as webp
+```
 
-## Products (hardcoded in lib/products.js)
-- rl-500ml: Rio Largo 500ml @ £14.00
-- rl-1l: Rio Largo 1 Litre @ £21.00
-- rl-2l: Rio Largo 2 Litre @ £32.00
+## Content / commerce model
+- **3 bottles for sale** (all 500ml at £13.00): Botanicals, Belle Fiore, Karoo Splendor.
+  They are three **label designs of the same 500ml bottle** — use the same product
+  image for all three. Differentiation is in `flavourNotes`, `tagline`, `description`,
+  `pairing` in `src/lib/products.ts`.
+- **2 waitlist items** (not yet imported to UK): 1L and 2L decanters.
+- **No cart/checkout.** The Pre-Order button opens a `<WaitlistForm>` that captures
+  an email + product via Formspree. The owner then emails the customer to complete
+  payment/shipping manually. This is a deliberate "human-in-the-loop" approach.
+- **Contact form** also posts to Formspree.
 
-## Next steps after build succeeds
-1. Add D1 binding (DB = riolargo-db) in Cloudflare Pages settings
-2. Add all environment variables
-3. Set up Stripe webhook pointing to https://riolargo-uk.pages.dev/api/webhook
-4. Test a purchase end to end
-5. Buy domain riolargo.co.uk and connect to Pages project
-6. Update NEXT_PUBLIC_SITE_URL to the real domain
-7. Add product photos (currently using olive emoji placeholders)
+## Before the site takes real traffic
+1. Create a Formspree form and replace `FORMSPREE_FORM_ID` in `src/lib/endpoints.ts`.
+2. Create a favicon and drop it in `src/app/favicon.ico`.
+3. Add legal pages (privacy / terms / cookies) — not yet in scope.
+4. Add `app/sitemap.ts`, `app/robots.ts`, OG image in `src/app/`.
+5. Add Product JSON-LD on the shop page.
+6. Integrate a real-reviews widget (Trustpilot / Judge.me) — testimonials section was
+   deleted because the quotes were fabricated.
+7. Buy `riolargo.co.uk` and attach to Cloudflare Pages.
+
+## Common tasks
+- **Change a product**: edit `src/lib/products.ts`. Both the homepage grid and the
+  shop page read from there.
+- **Add a new page**: create `src/app/<slug>/page.tsx` (server, `export const metadata`)
+  + `<slug>-content.tsx` (client, `"use client"`).
+- **Change copy on a shared section**: `src/components/sections/*.tsx`.
+- **Tweak colours/fonts**: `src/app/globals.css` `@theme` block.
+
+## Tracking files (global convention)
+- `tasks/todo.md` — current-session plan, reviewed at session start.
+- `tasks/changelog.md` — append dated entries at session end.
+- `tasks/lessons.md` — project-specific corrections (not yet created).

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { m, useScroll, useTransform, AnimatePresence } from "motion/react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -44,8 +45,16 @@ export function Header() {
         }}
       >
         <nav className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 group">
-            <span className="font-display text-2xl font-bold tracking-tight text-text group-hover:text-accent transition-colors duration-200">
+          <Link href="/" className="flex items-center gap-3 group" aria-label="Rio Largo — home">
+            <Image
+              src="/images/logo-250w.webp"
+              alt=""
+              width={40}
+              height={40}
+              priority
+              className="h-9 w-auto md:h-10 transition-opacity duration-200 group-hover:opacity-80"
+            />
+            <span className="font-display text-xl md:text-2xl font-bold tracking-tight text-text group-hover:text-accent transition-colors duration-200">
               Rio Largo
             </span>
           </Link>
