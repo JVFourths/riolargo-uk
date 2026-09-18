@@ -1,3 +1,18 @@
+## 2026-09-18 — Google Search Console set up, sitemap submitted
+
+- Done through Chrome (Claude in Chrome), signed in as Johan's personal Google account (johanjavisser@gmail.com).
+- Added `riolargo.co.uk` as a **Domain property** (covers apex, www, http and https).
+- Verification: Google offered automatic verification by authorising its access to the Cloudflare DNS account. Declined that and used the manual method: added a `TXT @ google-site-verification=k2Yfi_...` record in Cloudflare DNS, confirmed it resolved on 1.1.1.1 and 8.8.8.8, then verified. **Do not delete that TXT record** or verification lapses.
+- Submitted `https://riolargo.co.uk/sitemap.xml`: accepted, 5 pages discovered.
+- Seen in DNS: leftover Resend/Amazon SES records on `send.riolargo.co.uk` (MX, SPF TXT, `resend._domainkey` TXT) from the old shop's order emails. Harmless, left in place; remove if Resend is never coming back.
+- The cleanup build was confirmed live earlier (Johan ran `wrangler deploy`): sitemap, robots, favicon, OG image, canonical tags all serving; raw source images now 404.
+- **Blocked:** opening `sidwells.net/wp-admin` was denied by the Claude Code permission classifier (separate live third-party shop). Adding the link from sidwells.net to riolargo.co.uk is for Johan or the owner to do.
+- **Open threads:**
+  1. Link from sidwells.net (Rio Largo brand page and olive oil category) to https://riolargo.co.uk/.
+  2. Add the owner as a user on the Search Console property if he wants access.
+  3. Privacy page, Product JSON-LD, real reviews.
+  4. wrangler still logged in to the personal Cloudflare account.
+
 ## 2026-09-18 — HTTPS and www redirects switched on in the Cloudflare dashboard
 
 - Done through Chrome (Claude in Chrome) after Johan signed in to the dashboard as johan@jkmv.co.uk; wrangler's scopes could not change zone settings.
