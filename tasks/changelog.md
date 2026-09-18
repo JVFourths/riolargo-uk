@@ -1,3 +1,14 @@
+## 2026-09-18 — Deployed to production; Cloudflare plugin installed
+
+- Johan re-authenticated wrangler as johan@jkmv.co.uk. Built and ran `wrangler pages deploy out --project-name riolargo-uk --branch master`. 126 files uploaded.
+- Verified on https://riolargo-uk.pages.dev/: all five pages return 200, new hero copy is served, shop links to all four Sidwell's product pages, delivery page links to Sidwell's returns policy, no "Free UK" or `orders@riolargo` text anywhere.
+- Installed the official Cloudflare Claude Code plugin at Johan's request, following https://developers.cloudflare.com/agent-setup/prompt.md: `claude plugin marketplace add cloudflare/skills` then `claude plugin install cloudflare@cloudflare` (user scope, v1.0.0). Adds 14 skills and one MCP server (`https://mcp.cloudflare.com/mcp`).
+- Audited the repo first with `skill-security-auditor`. Scanner verdict was FAIL, overridden after manual review: the 3 criticals were documentation lines mentioning secrets, the 6 highs were manifest dotfolders. No hooks, no binaries; scripts only contact api.cloudflare.com, challenges.cloudflare.com and github.com.
+- **Open threads:**
+  1. Run `/reload-plugins` to activate the plugin; the Cloudflare MCP server will ask for OAuth on first use.
+  2. wrangler is now signed in to the personal Cloudflare account. Gable work needs `npx wrangler login` as johan.visser@gable.group again.
+  3. Still worth connecting the Pages project to GitHub so pushes deploy by themselves.
+
 ## 2026-09-18 — Committed and pushed; live deploy still pending
 
 - Johan reviewed locally and approved. Committed as `75d4e9c` on `design/botanical-refresh`, fast-forwarded `master`, pushed to GitHub.

@@ -12,7 +12,7 @@ Goal: review the site against the current design skills and apply them.
 - [x] Real photos in place of AI-generated ones
 - [x] Type-check, build, screenshots at 1440 and 390
 - [x] Range aligned to sidwells.net: four products, own photo each, 1L on sale, 2L removed
-- [ ] Johan reviews branch `design/botanical-refresh`, then commit and push
+- [x] Johan reviewed, committed, pushed, deployed to production and verified live
 
 ## Out of scope (next pass)
 - Formspree ID, favicon, legal pages, sitemap, robots, OG image, Product JSON-LD
