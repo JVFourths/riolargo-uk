@@ -1,3 +1,14 @@
+## 2026-09-18 — HTTPS and www redirects switched on in the Cloudflare dashboard
+
+- Done through Chrome (Claude in Chrome) after Johan signed in to the dashboard as johan@jkmv.co.uk; wrangler's scopes could not change zone settings.
+- SSL/TLS > Edge Certificates: **Always Use HTTPS = on**. No loop risk, the origin is a static-assets Worker with no redirects of its own.
+- Rules > Redirect Rules: deployed the "Redirect from WWW to root" template (`https://www.*` to `https://${1}`, 301, preserve query string on). Cloudflare warned it could not see a proxied DNS record for `www`; chose "Ignore and deploy anyway" because `www` is a Worker custom domain (already proxied) and a new DNS record would have clashed with it.
+- Verified from outside: `http://riolargo.co.uk/` 301 to https; `https://www.riolargo.co.uk/shop?x=1` 301 to `https://riolargo.co.uk/shop?x=1`; `http://www.../shop` lands on `https://riolargo.co.uk/shop` in 2 hops; bare https pages 200.
+- **Open threads:**
+  1. The cleanup build (favicon, sitemap, robots, canonical tags, image tidy) is committed but not deployed: `npx wrangler deploy`.
+  2. After that, submit `https://riolargo.co.uk/sitemap.xml` in Google Search Console.
+  3. wrangler is still logged in to the personal Cloudflare account; re-login for Gable before Gable work.
+
 ## 2026-09-18 — Old database deleted; repo and SEO cleanup
 
 - **Correction:** I had reported D1 `riolargo-db` as having 0 tables, read from the D1 list API, which does not populate `num_tables`. `wrangler d1 info` showed 2. Inspected before deleting: `orders` had 0 rows and no `sqlite_sequence` entry (nothing ever inserted); `inventory` had 3 seed rows (50/40/25 stock, identical timestamps 2026-04-06, including a 2 Litre never sold). No customer data. Deleted with Johan's approval (`wrangler d1 delete riolargo-db`). See lessons.
