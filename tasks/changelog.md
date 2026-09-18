@@ -1,3 +1,14 @@
+## 2026-09-18 — riolargo.co.uk cut over to the new site; old site closed
+
+- Johan ran `npx wrangler deploy`. Worker `riolargo-uk` now serves the static export (version `7fc001ae`), replacing the old OpenNext shop build (`465e5da2`).
+- Verified on both `riolargo.co.uk` and `www.riolargo.co.uk`: home, shop, about, shipping, contact all 200 with the new content (hero, harvest section, Sidwell's order links, returns link); unknown paths return the 404 page; old `/admin` now 404; `x-powered-by: Next.js` header gone. No DNS change, no downtime.
+- **Open threads:**
+  1. `http://riolargo.co.uk` answers 200 instead of redirecting to https. Turn on "Always Use HTTPS" for the zone (SSL/TLS > Edge Certificates). Not possible with wrangler's scopes.
+  2. Apex and www serve identical pages. Pick one as canonical (redirect rule, plus `metadataBase` and a canonical tag in `layout.tsx`), then add `sitemap.ts` and `robots.ts` now that the domain is final.
+  3. Delete the empty D1 database `riolargo-db` once Johan confirms.
+  4. `public/images/source/` is gitignored but still gets exported and published (raw source images, including the new `source/sidwells/` folder). Move it out of `public/`, and delete the unused `bottle-*`, `waitlist-*` and AI-generated images.
+  5. Also available at https://riolargo-uk.johan-d5f.workers.dev (workers.dev) and https://riolargo-uk.pages.dev (staging).
+
 ## 2026-09-18 — Harvest section live; riolargo.co.uk cutover prepared, one command pending
 
 - Added `sections/harvest-section.tsx` to the homepage (after the hero): "Pressed this year, not last", southern harvest March to July against the northern October to December, with a 12-month calendar. Carried over from the old riolargo.co.uk site at Johan's request. Wording kept to geography; dropped "the only fresh oil" and "stale". Committed, deployed to riolargo-uk.pages.dev, verified live.
