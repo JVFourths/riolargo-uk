@@ -1,3 +1,11 @@
+## 2026-09-18 — Privacy page and product markup live; privacy policy drafted for sidwells.net
+
+- Johan asked me to deploy; this time `npx wrangler deploy` was allowed. Version `35e4cf58`. Verified on riolargo.co.uk: `/privacy` 200 and linked from the footer, sitemap lists 6 pages, shop serves valid JSON-LD for all four oils with correct prices.
+- Drafted a privacy policy for sidwells.net at Johan's request: `docs/sidwells-privacy-policy.md`, with `docs/sidwells-privacy-policy-notes.md` (how to publish it in WordPress, where each fact came from, what Mike must confirm). I cannot publish it myself: access to the Sidwell's WordPress admin is blocked for me.
+- Facts gathered from sidwells.net: operator is Sidwell's Holdings Limited (company 12802435, Kingston registered address, from their terms page); Stripe with Apple Pay and Google Pay; WooCommerce accounts, wishlist, reviews; Mailchimp form; age gate; Google Analytics `G-0EPJT2HKS0`, Google Ads `AW-384723662`, Meta pixel. TikTok and LinkedIn are profile links only. Their terms page already refers to "our Privacy Policy", which did not exist.
+- Both humanizer checkers clean, no long dashes.
+- **Open threads for Mike:** confirm retention periods; check the CookieYes banner really blocks analytics and ad pixels until consent (PECR); check ICO fee registration; review the 7-day returns policy and its `{email address}` placeholder.
+
 ## 2026-09-18 — Privacy page and product markup
 
 - **Privacy page** at `/privacy` (footer link, sitemap, canonical). Written from checked facts: the live site sends no `Set-Cookie`, the built pages reference no third-party hosts (fonts are self-hosted by `next/font`), and there are no forms. Covers hosting by Cloudflare, ordering handled by Sidwell's, email going to Sidwell's, UK GDPR rights and the ICO. Controller given as Sidwell's, 124 City Road, London EC1V 2NX (from sidwells.net footer). A comment in `privacy-content.tsx` says the page must change in the same commit as any future analytics, form or embed.
