@@ -61,8 +61,10 @@ src/
   lib/
     products.ts               Single source of truth for the 3 SKUs + waitlist items
     endpoints.ts              CONTACT_EMAIL (Sidwell's address until a Rio Largo mailbox exists)
+    site.ts                   SITE_URL + route list (canonical, sitemap, robots)
     utils.ts                  cn() helper
-public/images/                All product + estate imagery as webp
+public/images/                Only the webp images the site uses
+assets-src/                   Raw image sources (source/ is gitignored). Never put raw files in public/.
 ```
 
 ## Content / commerce model

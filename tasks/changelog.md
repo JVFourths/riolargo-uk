@@ -1,3 +1,15 @@
+## 2026-09-18 — Old database deleted; repo and SEO cleanup
+
+- **Correction:** I had reported D1 `riolargo-db` as having 0 tables, read from the D1 list API, which does not populate `num_tables`. `wrangler d1 info` showed 2. Inspected before deleting: `orders` had 0 rows and no `sqlite_sequence` entry (nothing ever inserted); `inventory` had 3 seed rows (50/40/25 stock, identical timestamps 2026-04-06, including a 2 Litre never sold). No customer data. Deleted with Johan's approval (`wrangler d1 delete riolargo-db`). See lessons.
+- Moved raw image sources out of the published folder: `public/images/source` and `public/images/generated` are now `assets-src/source` (gitignored) and `assets-src/generated`. They were being exported and served publicly.
+- Removed 42 unused derived images (old bottle shots, waitlist decanters, AI-generated estate scenes, recipe crops, unused size variants). `public/images` now holds the 8 images the site uses plus `logo-500w.webp`.
+- Added `src/lib/site.ts` (`SITE_URL = https://riolargo.co.uk`), `metadataBase` and per-page canonical tags on the bare domain, `sitemap.ts`, `robots.ts`, a fox favicon (`icon.png`, `apple-icon.png`) cut from the logo, and an Open Graph image. Root meta description no longer says "cold-pressed, delivered fresh".
+- Verified: `tsc` clean, `next build` green (13 static outputs), every `/images/...` path referenced in `src` exists, canonical tags and sitemap checked in `out/`.
+- **Open threads:**
+  1. Deploy: `npx wrangler deploy` (Johan, classifier blocks it for me), then I verify.
+  2. Dashboard: turn on Always Use HTTPS, and add a redirect rule from www to the bare domain.
+  3. Still open from April: legal pages (lighter now that the site collects no data), Product JSON-LD, real reviews widget.
+
 ## 2026-09-18 — riolargo.co.uk cut over to the new site; old site closed
 
 - Johan ran `npx wrangler deploy`. Worker `riolargo-uk` now serves the static export (version `7fc001ae`), replacing the old OpenNext shop build (`465e5da2`).

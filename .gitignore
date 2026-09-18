@@ -11,7 +11,7 @@ data/
 .claude/
 
 # scraped third-party assets — re-downloadable, not source of truth
-public/images/source/
+assets-src/source/
 
 # screenshot audit output — regenerate via scripts/screenshot-mobile.mjs
 audit/

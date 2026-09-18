@@ -3,6 +3,7 @@ import { Cormorant_Garamond, Hanken_Grotesk } from "next/font/google";
 import { MotionProvider } from "@/components/motion-config";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -21,9 +22,17 @@ const hanken = Hanken_Grotesk({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  // "./" resolves against each route, so every page gets its own canonical on the bare domain.
+  alternates: { canonical: "./" },
   title: "Rio Largo | Award-Winning South African Olive Oil",
   description:
-    "Premium extra virgin olive oil from the Breede River Valley, South Africa. Award-winning, cold-pressed, and delivered fresh to the UK.",
+    "Extra virgin olive oil from a family estate on the Breede River, South Africa. Award-winning, cold extracted, and sold in the UK by Sidwell's.",
+  openGraph: {
+    siteName: "Rio Largo Olive Estate",
+    locale: "en_GB",
+    type: "website",
+  },
   keywords: [
     "olive oil",
     "South African olive oil",
