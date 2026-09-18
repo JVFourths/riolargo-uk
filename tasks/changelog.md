@@ -1,3 +1,10 @@
+## 2026-09-18 — Committed and pushed; live deploy still pending
+
+- Johan reviewed locally and approved. Committed as `75d4e9c` on `design/botanical-refresh`, fast-forwarded `master`, pushed to GitHub.
+- **Finding:** the push did not deploy. After 5 minutes https://riolargo-uk.pages.dev/ still served the old build. The Pages project looks like a direct-upload project (first deployed with `wrangler pages deploy out` in April), not one connected to GitHub, so CLAUDE.md's "auto-deploys from GitHub push" was wrong. Corrected.
+- **Blocked:** wrangler on this machine is signed in as johan.visser@gable.group, which has no access to the johan@jkmv.co.uk account that owns the project (API auth error 10000). Did not switch logins, since that affects Gable work.
+- **To deploy:** `npx wrangler logout`, `npx wrangler login` as johan@jkmv.co.uk, then `npx next build` and `npx wrangler pages deploy out --project-name riolargo-uk --branch master`. Log back in to Gable afterwards. Or connect the Pages project to the GitHub repo in the Cloudflare dashboard so pushes deploy by themselves.
+
 ## 2026-09-18 — Contact form replaced with email links
 
 - **Decision (Johan):** drop the contact form rather than set up Formspree. The form posted to a placeholder ID, so messages went nowhere.

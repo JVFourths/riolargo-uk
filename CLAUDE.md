@@ -22,7 +22,10 @@ background (the wordmark is black). No unsourced stats, award counts or quotes i
 ## Repo + infra
 - GitHub: https://github.com/JVFourths/riolargo-uk (branch `master`)
 - Cloudflare account: johan@jkmv.co.uk — account ID `d5fbd486ce2e2f4c99315afa66198462`
-- Cloudflare Pages project: `riolargo-uk` (auto-deploys from GitHub push)
+- Cloudflare Pages project: `riolargo-uk`. **Direct upload, not GitHub-connected**: a push does
+  not deploy. Deploy with `npx next build` then
+  `npx wrangler pages deploy out --project-name riolargo-uk --branch master`, with wrangler
+  logged in as johan@jkmv.co.uk (this machine is usually logged in to Gable).
 - Build command: `npx next build` → output in `out/`
 - Publish directory: `out`
 
