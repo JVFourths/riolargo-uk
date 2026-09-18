@@ -4,7 +4,7 @@ import ContactContent from "./contact-content";
 export const metadata: Metadata = {
   title: "Contact | Rio Largo",
   description:
-    "Get in touch about our oils, your order, or wholesale enquiries. We aim to respond within 24 hours.",
+    "Questions about Rio Largo olive oil, an order or wholesale? Email Sidwell's, the estate's sole UK supplier.",
   openGraph: {
     title: "Contact | Rio Largo",
     description: "Get in touch about our oils, your order, or wholesale enquiries.",

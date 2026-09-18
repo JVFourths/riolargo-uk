@@ -1,3 +1,7 @@
+// The range mirrors what Sidwell's sells in the UK: https://sidwells.net/product-category/olive-oil/
+// Only list a product here if it is listed there. Ordering happens on sidwells.net:
+// each product links to its own page there via `orderUrl`.
+
 export type Product = {
   slug: string;
   name: string;
@@ -9,86 +13,88 @@ export type Product = {
   price: string;
   size: string;
   image: string;
+  imageAlt: string;
+  /** "contain" for tall cut-out shots that an arched crop would clip. */
+  imageFit: "cover" | "contain";
   available: boolean;
-  saPrice?: string;
+  /** The product page on sidwells.net, where the customer buys it. */
+  orderUrl: string;
 };
 
-const SMALL_BOTTLE_IMAGE = "/images/bottle-500ml-800w.webp";
+export const SIDWELLS_OLIVE_OIL_URL = "https://sidwells.net/product-category/olive-oil/";
 
 export const products: Product[] = [
   {
     slug: "botanicals",
     shortName: "Botanicals",
-    name: "\u201CBotanicals\u201D Extra Virgin Olive Oil",
+    name: "“Botanicals” Extra Virgin Olive Oil",
     tagline: "A celebration of the Cape's indigenous flora",
     description:
       "Beautifully balanced with a peppery finish and a smooth, buttery body. Our everyday oil, bright enough for salads and soft enough for finishing.",
-    flavourNotes: "Peppery \u00B7 Buttery \u00B7 Balanced",
+    flavourNotes: "Peppery · Buttery · Balanced",
     pairing: "Salads, fresh bread, grilled vegetables",
     price: "13.00",
     size: "500ml",
-    image: SMALL_BOTTLE_IMAGE,
+    image: "/images/label-botanicals-800w.webp",
+    imageAlt:
+      "Rio Largo Botanicals decanter, printed with wildflowers and grasses, on a garden table",
+    imageFit: "cover",
     available: true,
+    orderUrl: "https://sidwells.net/product/botanicals-extra-virgin-olive-oil-500ml/",
   },
   {
     slug: "belle-fiore",
     shortName: "Belle Fiore",
-    name: "\u201CBelle Fiore\u201D Extra Virgin Olive Oil",
+    name: "“Belle Fiore” Extra Virgin Olive Oil",
     tagline: "Rich, full-bodied, made for the dedicated home cook",
     description:
       "Grassy undertones and a deep golden colour. A robust oil that stands up to strong flavours without losing its character.",
-    flavourNotes: "Grassy \u00B7 Robust \u00B7 Golden",
+    flavourNotes: "Grassy · Robust · Golden",
     pairing: "Tomato dishes, roast meats, bean stews",
     price: "13.00",
     size: "500ml",
-    image: SMALL_BOTTLE_IMAGE,
+    image: "/images/label-belle-fiore-800w.webp",
+    imageAlt:
+      "Rio Largo Belle Fiore decanter, printed with pink roses on a dark ground",
+    imageFit: "cover",
     available: true,
+    orderUrl: "https://sidwells.net/product/rio-largo-belle-fiore-extra-virgin-olive-oil-500ml/",
   },
   {
     slug: "karoo-splendor",
     shortName: "Karoo Splendor",
-    name: "\u201CKaroo Splendor\u201D Extra Virgin Olive Oil",
+    name: "“Karoo Splendor” Extra Virgin Olive Oil",
     tagline: "Inspired by the rugged beauty of the Karoo",
     description:
       "Our award-winning cold-extracted flagship. Herbaceous, bright, and unmistakably estate-grown.",
-    flavourNotes: "Herbaceous \u00B7 Bright \u00B7 Complex",
-    pairing: "Finishing oil for fish, burrata, fresh pasta",
+    flavourNotes: "Herbaceous · Bright · Complex",
+    pairing: "Fish, burrata, fresh pasta, as a finishing oil",
     price: "13.00",
     size: "500ml",
-    image: SMALL_BOTTLE_IMAGE,
+    image: "/images/label-karoo-splendor-800w.webp",
+    imageAlt:
+      "Rio Largo Karoo Splendor decanter, printed with succulents, in front of Karoo hills",
+    imageFit: "cover",
     available: true,
-  },
-];
-
-export const waitlistProducts: Product[] = [
-  {
-    slug: "decanter-1l",
-    shortName: "1 Litre Decanter",
-    name: "1 Litre Decanter",
-    tagline: "Reusable kitchen decanter with tap",
-    description:
-      "The same award-winning oil in a beautiful reusable decanter with a built-in tap. Perfect for the kitchen counter.",
-    flavourNotes: "",
-    pairing: "",
-    price: "",
-    size: "1 Litre",
-    image: "/images/waitlist-1l-800w.webp",
-    available: false,
-    saPrice: "R330",
+    orderUrl: "https://sidwells.net/product/karoo-splendor-extra-virgin-olive-oil-500ml/",
   },
   {
-    slug: "decanter-2l",
-    shortName: "2 Litre Decanter",
-    name: "2 Litre Decanter",
-    tagline: "Best value for dedicated enthusiasts",
+    slug: "one-litre",
+    shortName: "The Litre",
+    name: "Rio Largo Extra Virgin Olive Oil (1 Litre)",
+    tagline:
+      "The same oil in the black olive-branch decanter, for kitchens that get through it",
     description:
-      "Refillable decanter keeps oil fresh until the last drop. For households that get through a lot of good oil.",
-    flavourNotes: "",
-    pairing: "",
-    price: "",
-    size: "2 Litre",
-    image: "/images/waitlist-2l-800w.webp",
-    available: false,
-    saPrice: "R630",
+      "Selected Italian olive varieties, cold extracted so the oil keeps its goodness, then blended for a consistent flavour and aroma. The odd trace of sediment is normal: the oil is strained by gravity alone. Keep it somewhere cool and dark, not in the fridge.",
+    flavourNotes: "Cold extracted · Gravity strained",
+    pairing: "Everyday cooking, dressings and the table",
+    price: "22.00",
+    size: "1 litre",
+    image: "/images/decanter-1l-800w.webp",
+    imageAlt:
+      "Rio Largo one litre decanter in black with white olive-branch drawings",
+    imageFit: "contain",
+    available: true,
+    orderUrl: "https://sidwells.net/product/rio-largo-extra-virgin-olive-oil-1-litre/",
   },
 ];

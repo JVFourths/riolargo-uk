@@ -21,3 +21,5 @@ audit/
 
 # Dev screenshots (root-level PNGs)
 /*.png
+
+*.tsbuildinfo

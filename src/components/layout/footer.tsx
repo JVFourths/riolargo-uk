@@ -1,99 +1,78 @@
-"use client";
-
 import Link from "next/link";
-import { m } from "motion/react";
-import { fadeUp, viewportConfig, smoothTransition } from "@/components/motion-config";
-import { Mail, MapPin } from "lucide-react";
+import { CONTACT_EMAIL } from "@/lib/endpoints";
 
 const footerLinks = [
   {
     title: "Shop",
     links: [
-      { href: "/shop", label: "All Olive Oils" },
-      { href: "/shipping", label: "Shipping & Returns" },
+      { href: "/shop", label: "All olive oils" },
+      { href: "/shipping", label: "Delivery and returns" },
     ],
   },
   {
-    title: "About",
+    title: "The estate",
     links: [
-      { href: "/about", label: "Our Story" },
-      { href: "/about#estate", label: "The Estate" },
-      { href: "/about#process", label: "How We Make It" },
+      { href: "/about", label: "Our story" },
+      { href: "/about#estate", label: "The valley" },
+      { href: "/about#process", label: "How we make it" },
     ],
   },
   {
     title: "Help",
-    links: [
-      { href: "/contact", label: "Contact Us" },
-      { href: "/shipping", label: "Delivery Info" },
-    ],
+    links: [{ href: "/contact", label: "Contact us" }],
   },
 ];
 
 export function Footer() {
   return (
-    <m.footer
-      initial="hidden"
-      whileInView="visible"
-      viewport={viewportConfig}
-      variants={fadeUp}
-      transition={smoothTransition}
-      className="border-t border-border bg-bg-surface"
-    >
-      <div className="mx-auto max-w-7xl px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
-          {/* Brand */}
-          <div className="md:col-span-1">
-            <Link href="/" className="font-display text-2xl font-bold text-text">
-              Rio Largo
+    <footer className="bg-grove text-on-grove">
+      <div className="container-page py-20">
+        <div className="grid grid-cols-1 gap-14 md:grid-cols-12">
+          <div className="md:col-span-5">
+            <Link href="/" className="font-display text-4xl font-medium">
+              Rio Largo <span className="italic">Olive Estate</span>
             </Link>
-            <p className="mt-4 text-sm text-text-muted leading-relaxed">
-              Award-winning extra virgin olive oil from the Breede River Valley,
-              South Africa. Delivered fresh to your door in the UK.
+            <p className="mt-5 max-w-sm text-on-grove-muted">
+              Extra virgin olive oil from a family estate on the Breede River,
+              Western Cape. Sent to UK kitchens.
             </p>
-            <div className="mt-6 flex flex-col gap-3 text-sm text-text-muted">
-              <div className="flex items-center gap-2">
-                <MapPin size={14} className="text-accent shrink-0" />
-                <span>Breede River Valley, Western Cape</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Mail size={14} className="text-accent shrink-0" />
-                <span>orders@riolargo.co.uk</span>
-              </div>
-            </div>
+            <a
+              href={`mailto:${CONTACT_EMAIL}`}
+              className="mt-6 inline-block underline decoration-1 underline-offset-4 transition-colors duration-(--duration-state) hover:text-on-grove-muted"
+            >
+              {CONTACT_EMAIL}
+            </a>
           </div>
 
-          {/* Link columns */}
-          {footerLinks.map((col) => (
-            <div key={col.title}>
-              <h3 className="text-xs font-semibold uppercase tracking-widest text-accent mb-4">
-                {col.title}
-              </h3>
-              <ul className="flex flex-col gap-3">
-                {col.links.map((link) => (
-                  <li key={link.href + link.label}>
-                    <Link
-                      href={link.href}
-                      className="text-sm text-text-muted hover:text-accent transition-colors duration-200"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          <nav
+            aria-label="Footer"
+            className="grid grid-cols-2 gap-10 sm:grid-cols-3 md:col-span-7"
+          >
+            {footerLinks.map((col) => (
+              <div key={col.title}>
+                <h2 className="label font-body text-on-grove-muted">{col.title}</h2>
+                <ul className="mt-5 flex flex-col gap-3">
+                  {col.links.map((link) => (
+                    <li key={link.href}>
+                      <Link
+                        href={link.href}
+                        className="underline-offset-4 transition-colors duration-(--duration-state) hover:underline"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </nav>
         </div>
 
-        <div className="mt-16 pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-text-muted">
-            &copy; {new Date().getFullYear()} Rio Largo Olive Estate. All rights reserved.
-          </p>
-          <p className="text-xs text-text-muted">
-            Premium South African olive oil, crafted with care.
-          </p>
-        </div>
+        <p className="mt-16 border-t border-grove-raised pt-8 text-small text-on-grove-muted">
+          &copy; {new Date().getFullYear()} Rio Largo Olive Estate. Scherpenheuwel
+          Valley, Breede River, South Africa.
+        </p>
       </div>
-    </m.footer>
+    </footer>
   );
 }

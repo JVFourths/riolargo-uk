@@ -1,0 +1,56 @@
+/* Rio Largo UK design tokens. Explained in design/DESIGN.md; every value here appears there.
+   Imported by src/app/globals.css. Tailwind v4 turns each entry into utilities
+   (bg-paper, text-ink, font-display, ease-settle, ...). */
+
+@theme {
+  /* Colour: paper and ink */
+  --color-paper: #f6f1e7;
+  --color-paper-raised: #fffdf8;
+  --color-paper-sunk: #ece4d3;
+  --color-ink: #1f2a1e;
+  --color-ink-muted: #566152;
+  --color-rule: #d9cfba;
+  --color-rule-strong: #b9ad93;
+
+  /* Colour: brand accents */
+  --color-fox: #b5301f;
+  --color-fox-deep: #8f2416;
+  --color-leaf: #56693d;
+  --color-oil: #c79a2e;
+
+  /* Colour: the dark band (footer, closing call) */
+  --color-grove: #26321f;
+  --color-grove-raised: #31402a;
+  --color-on-grove: #f6f1e7;
+  --color-on-grove-muted: #b9c2ac;
+
+  /* Colour: feedback */
+  --color-danger: #9b1c1c;
+
+  /* Type */
+  --font-display: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  --font-body: var(--font-hanken), "Hanken Grotesk", "Segoe UI", sans-serif;
+
+  --text-label: 0.75rem;
+  --text-small: 0.875rem;
+  --text-base: 1.0625rem;
+  --text-lede: 1.25rem;
+  --text-h3: 1.75rem;
+  --text-h2: clamp(2.25rem, 4.2vw, 3.5rem);
+  --text-h1: clamp(2.75rem, 6.4vw, 5.75rem);
+
+  /* Layout */
+  --container-page: 76rem;
+  --container-measure: 38rem;
+
+  /* Radius: square corners everywhere; the arch is the only curve */
+  --radius-arch: 999px 999px 0 0;
+
+  /* Elevation */
+  --shadow-plate: 0 1px 0 #d9cfba, 0 18px 40px -24px rgb(31 42 30 / 0.35);
+
+  /* Motion */
+  --ease-settle: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-state: 180ms;
+  --duration-reveal: 550ms;
+}

@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import ShippingContent from "./shipping-content";
 
 export const metadata: Metadata = {
-  title: "Shipping & Returns | Rio Largo",
+  title: "Delivery & Returns | Rio Largo",
   description:
-    "Free UK delivery on all orders via Royal Mail Tracked 48. Dispatched same day if ordered before 2pm. 14-day satisfaction guarantee.",
+    "Rio Largo olive oil is sold and delivered in the UK by Sidwell's. Delivery is priced at their checkout and returns follow their policy.",
   openGraph: {
-    title: "Shipping & Returns | Rio Largo",
-    description: "Free UK delivery on all orders. Dispatched same day if ordered before 2pm.",
+    title: "Delivery & Returns | Rio Largo",
+    description: "Sold and delivered in the UK by Sidwell's.",
     type: "website",
   },
 };

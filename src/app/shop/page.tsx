@@ -4,11 +4,11 @@ import ShopContent from "./shop-content";
 export const metadata: Metadata = {
   title: "Shop | Rio Largo Extra Virgin Olive Oil",
   description:
-    "Three 500ml label editions of our cold-pressed extra virgin olive oil from the Breede River Valley. Free UK delivery.",
+    "Rio Largo extra virgin olive oil from the Breede River Valley: three 500ml labels and a one litre, sold in the UK by Sidwell's.",
   openGraph: {
     title: "Shop Rio Largo Olive Oil",
     description:
-      "Three 500ml label editions of our cold-pressed extra virgin olive oil. Free UK delivery.",
+      "Three 500ml labels and a one litre, sold in the UK by Sidwell's.",
     type: "website",
   },
 };

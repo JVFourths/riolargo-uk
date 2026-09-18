@@ -1,90 +1,74 @@
-"use client";
-
-import { m } from "motion/react";
+import Image from "next/image";
 import Link from "next/link";
-import {
-  fadeUp,
-  staggerContainer,
-  viewportConfig,
-  smoothTransition,
-} from "@/components/motion-config";
-import { ProductCard3D } from "@/components/ui/product-card-3d";
+import { ArrowRight } from "lucide-react";
+import { Reveal } from "@/components/motion-config";
+import { NUMERALS } from "@/components/ui/catalogue-entry";
+import { cn } from "@/lib/utils";
 import { products } from "@/lib/products";
 
 export function ProductsGrid() {
   return (
-    <section className="relative py-32 overflow-hidden">
-      <div className="mx-auto max-w-7xl px-6">
-        {/* Section header */}
-        <m.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportConfig}
-          variants={fadeUp}
-          transition={smoothTransition}
-          className="text-center mb-20"
-        >
-          <span className="text-xs uppercase tracking-[0.3em] text-accent font-semibold">
-            The Collection
-          </span>
-          <h2 className="mt-4 font-display text-4xl md:text-5xl lg:text-6xl font-bold">
-            Three Labels, One Standard
+    <section className="bg-paper-sunk py-24 md:py-32">
+      <div className="container-page">
+        <Reveal className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
+          <h2 className="h2 lg:col-span-6">
+            Three labels <span className="italic">and a litre</span>
           </h2>
-          <p className="mt-6 text-text-muted max-w-xl mx-auto text-lg">
-            Each 500ml bottle is cold-extracted from hand-harvested olives within
-            hours of picking. Choose the character that matches your kitchen.
+          <p className="lede lg:col-span-5 lg:col-start-8">
+            The same estate oil in four decanters. Three 500ml label designs,
+            each with its own character, and a one litre for the kitchens that
+            get through it.
           </p>
-        </m.div>
+        </Reveal>
 
-        {/* Product cards */}
-        <m.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportConfig}
-          variants={staggerContainer}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8"
-        >
-          {products.map((product) => (
-            <m.div
-              key={product.slug}
-              variants={fadeUp}
-              transition={smoothTransition}
-            >
-              <Link href="/shop" className="group block cursor-pointer">
-                <div className="relative border border-border/50 overflow-visible transition-all duration-500 group-hover:border-accent/30 group-hover:shadow-[0_0_60px_rgba(201,168,76,0.06)]">
-                  {/* 3D bottle */}
-                  <ProductCard3D image={product.image} alt={product.name} />
-
-                  {/* Size badge */}
-                  <div className="absolute top-4 right-4 z-10 px-3 py-1 bg-accent/10 border border-accent/20 text-accent text-xs font-semibold tracking-wider uppercase backdrop-blur-sm">
-                    {product.size}
-                  </div>
-
-                  {/* Content */}
-                  <div className="p-6 bg-bg-surface/80 backdrop-blur-sm border-t border-border/50">
-                    <h3 className="font-display text-xl font-bold group-hover:text-accent transition-colors duration-200">
-                      {product.shortName}
-                    </h3>
-                    <p className="mt-1 text-xs uppercase tracking-wider text-olive-light">
-                      {product.flavourNotes}
-                    </p>
-                    <p className="mt-3 text-sm text-text-muted leading-relaxed">
-                      {product.tagline}
-                    </p>
-                    <div className="mt-6 flex items-center justify-between">
-                      <span className="text-2xl font-display font-bold text-accent">
-                        &pound;{product.price}
-                      </span>
-                      <span className="text-xs uppercase tracking-widest text-text-muted group-hover:text-accent transition-colors duration-200">
-                        View &amp; Order &rarr;
-                      </span>
+        <Reveal className="mt-16" delay={0.1}>
+          <ul className="grid grid-cols-2 gap-x-5 gap-y-12 lg:grid-cols-4 lg:gap-x-8">
+            {products.map((product, i) => (
+              <li key={product.slug} className={cn(i % 2 === 1 && "lg:mt-16")}>
+                <Link href={`/shop#${product.slug}`} className="group block">
+                  <div className="rounded-arch border border-rule bg-paper-raised p-2 shadow-plate">
+                    <div className="relative aspect-[4/5] overflow-hidden rounded-arch border border-rule-strong">
+                      <Image
+                        src={product.image}
+                        alt={product.imageAlt}
+                        fill
+                        sizes="(max-width: 1024px) 45vw, 22vw"
+                        className={cn(
+                          product.imageFit === "contain" ? "object-contain p-5 pt-10" : "object-cover",
+                          "transition-transform duration-500 ease-settle group-hover:scale-[1.03]"
+                        )}
+                      />
                     </div>
                   </div>
-                </div>
-              </Link>
-            </m.div>
-          ))}
-        </m.div>
+                  <p className="label mt-5 text-ink-muted">
+                    No. {NUMERALS[i]} &middot; {product.size}
+                  </p>
+                  <h3 className="mt-1 font-display text-2xl font-semibold leading-tight transition-colors duration-(--duration-state) group-hover:text-fox sm:text-3xl">
+                    {product.shortName}
+                  </h3>
+                  <p className="mt-1 font-display text-xl italic text-ink-muted">
+                    {product.flavourNotes.split(" · ").join(", ").toLowerCase()}
+                  </p>
+                  <p className="mt-2 font-display text-2xl font-semibold text-fox">
+                    &pound;{product.price}
+                  </p>
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          <Link
+            href="/shop"
+            className="link group mt-14 inline-flex items-center gap-2 font-semibold"
+          >
+            Read the tasting notes and order
+            <ArrowRight
+              size={18}
+              strokeWidth={1.5}
+              className="transition-transform duration-(--duration-state) group-hover:translate-x-1"
+            />
+          </Link>
+        </Reveal>
       </div>
     </section>
   );

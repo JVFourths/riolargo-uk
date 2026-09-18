@@ -1,3 +1,64 @@
+## 2026-09-18 — Contact form replaced with email links
+
+- **Decision (Johan):** drop the contact form rather than set up Formspree. The form posted to a placeholder ID, so messages went nowhere.
+- Contact page now has a primary `mailto:` button to `info@sidwells.net`, three topic rows (oils, an order, wholesale) that open an email with the subject filled in, and Sidwell's London address beside the estate's. Removed the "reply within 24 hours" promise, since nobody has confirmed it.
+- `endpoints.ts` now only exports `CONTACT_EMAIL`. Formspree is gone from the codebase, which also closes the oldest launch blocker and means the site collects no personal data itself.
+- Verified: `tsc` clean, `next build` green.
+
+## 2026-09-18 — Contact email switched to Sidwell's
+
+- Johan confirmed the riolargo.co.uk domain and mailbox do not exist yet. `orders@riolargo.co.uk` was shown in the footer, contact page and form error message, so customer mail would have bounced.
+- Replaced with `info@sidwells.net` via one constant, `CONTACT_EMAIL` in `src/lib/endpoints.ts` (renamed from `ORDERS_EMAIL`). The delivery page now imports it too. Change that one line when a Rio Largo address exists.
+- Verified: `tsc` clean, `next build` green, no `riolargo.co.uk` left in `src/`.
+- **Open thread:** the contact form still posts to the placeholder Formspree ID, so messages go nowhere until a real form ID is set in `endpoints.ts`. Its error message does point people to the working email.
+
+## 2026-09-18 — Ordering now goes to sidwells.net
+
+- **Decision (Johan):** no ordering on this site. Every product button opens that product's page on sidwells.net in a new tab (`orderUrl` in `products.ts`). All four URLs return 200.
+- Deleted `ui/waitlist-form.tsx` and all pre-order-by-email copy. Header button now reads "Shop the oils". Formspree is only used by the contact form now.
+- **Found:** Sidwell's checkout charges GBP 5.20 regular delivery on a single 500ml (checked with a test basket). This site promised "Free UK delivery" in six places. All removed.
+- **Found:** the old shipping page (free Royal Mail Tracked 48, same-day dispatch before 2pm, 14-day guarantee) contradicted Sidwell's actual terms: 7-day returns, unused and in original packaging, return postage paid by the customer, full refund or replacement if the fault is theirs. Rewrote the delivery page from Sidwell's policy and linked to it. No delivery price is hardcoded.
+- Verified: `tsc` clean, `next build` green.
+- **Open threads:**
+  1. Footer and contact page show `orders@riolargo.co.uk`. Sidwell's uses `info@sidwells.net`. Owner to confirm which address customers should see, and whether the riolargo one exists.
+  2. Sidwell's returns policy is 7 days and has a `{email address}` placeholder left in it. UK distance-selling rules generally give consumers 14 days to cancel, so the owner may want to review that policy on sidwells.net.
+  3. `available` in `products.ts` is no longer read by the UI.
+
+## 2026-09-18 — Range aligned to sidwells.net (the brief, clarified)
+
+- **New context from Johan:** the owner already sells these oils on https://sidwells.net/ alongside gin, brandy and wine (Sidwell's is the sole UK supplier of Rio Largo). This site exists to lift the oil onto its own, better site. Only products listed on sidwells.net may be shown. The oil comes from the estate owner, so images from riolargo.co.za are cleared for use.
+- Checked sidwells.net `/product-category/olive-oil/`: four products. Botanicals, Belle Fiore, Karoo Splendor (500ml, GBP 13) and **Rio Largo Extra Virgin Olive Oil 1 Litre at GBP 22, in stock**.
+- Fixed: the site listed the 1L as "not yet in the UK" and showed a 2L that Sidwell's does not sell. `products.ts` now holds the four real products; `waitlistProducts` and the "Larger sizes" shop section are gone.
+- Fixed: each label has its own photo on sidwells.net. Pulled all four (`label-botanicals`, `label-belle-fiore`, `label-karoo-splendor`, `decanter-1l`), so the same picture is no longer reused. The old CLAUDE.md note saying "use the same image for all three" was wrong.
+- Removed the kitchen photo of three decanters added earlier today: those labels (Blue Delft and others) are SA-only, not in the UK range.
+- Homepage collection is now four arched plates in a staggered row; the shop is four catalogue rows, each with its own photo, notes, price and pre-order form. 1L copy uses only what sidwells.net states (Italian varieties, cold extracted, gravity strained, store cool and dark).
+- Verified: `tsc` clean, `next build` green, screenshots of home and shop at 1440 and shop at 390. Preview server stopped by PID this time.
+- **Open threads:**
+  1. Belle Fiore shows no price button or stock flag on sidwells.net, so it may be out of stock. Listed as available here; owner to confirm. Setting `available: false` in `products.ts` switches its button to "Tell me when it arrives".
+  2. Decide how the two sites relate: link from sidwells.net to here, and whether ordering stays email-only or hands off to the Sidwell's checkout.
+  3. Unused images can be deleted once the branch is approved: `bottle-*`, `waitlist-*`, and the AI-generated estate shots.
+
+## 2026-09-18 — Design review and rebuild: dark gold theme replaced with a botanical catalogue
+
+- Reviewed every page against the current design skills (design-build, design-forge, frontend-design, ui-ux-pro-max). Main finding: the dark `#0C0C0C` and gold theme fought the real brand. The decanters are botanical prints shot in daylight, and the logo's black wordmark was close to invisible on the dark header.
+- Other findings fixed: gold gradient text, 3D tilt card with glow, 2x2 icon-box feature grid, animated stat counters, an uppercase eyebrow on every section, identical fade-ups everywhere, scroll indicator, the same product photo repeated three times in a card grid.
+- Wrote the project's first design authority: `design/DESIGN.md` and `design/tokens.css` (imported by `globals.css`). Paper `#f6f1e7`, ink `#1f2a1e`, fox red `#b5301f` from the logo, Cormorant Garamond and Hanken Grotesk.
+- New shared components: `ui/plate.tsx` (arched double-hairline photo frame with caption), `ui/catalogue-entry.tsx` (numbered product row), `ui/ledger.tsx` (numbered hairline list), `Reveal` in `motion-config.tsx`. Deleted `ui/product-card-3d.tsx`.
+- Rebuilt header, footer, all five homepage sections, shop, about, shipping, contact and the waitlist form. Form logic and Formspree wiring unchanged.
+- Closed old open thread 6: mobile drawer now locks body scroll, closes on Escape, moves focus to the close button and returns it to the opener. Added a skip link, visible focus rings, `aria-current` on nav, form labels, `role=status` and `role=alert`.
+- Swapped AI-generated estate imagery for real photos on every page touched. New webp conversions: `trio-kitchen`, `brenda-and-nick`, `oil-poured-pan`. The `generated/` derived files are still in `public/images` but no longer referenced.
+- **Decision:** removed claims with no source: "30+ international awards", "15+ years", "3 continents", "pressed within 4 hours", "acidity below 0.3%", the varietal list, nitrogen tanks, and the unattributed "finest in the Southern Hemisphere" quote (same ASA CAP Code problem as the testimonials removed in April). Replacement copy uses only what riolargo.co.za states. Any of these can go back once the owner confirms them.
+- **Decision:** the 500ml pack is called a "decanter" in new copy (the producer's own term). `products.ts` field names unchanged.
+- Verified: `tsc --noEmit` clean, `next build` green with 8 static routes, screenshots at 1440 and 390 for home and shop, 1440 for about and contact, no horizontal overflow, mobile menu behaviour checked in the browser.
+- Work is on branch `design/botanical-refresh`, uncommitted and not pushed, so the live site is unchanged.
+- **Mistake:** stopped the local preview server with `taskkill /F /IM node.exe`, which killed every node process on the machine, including the session's MCP servers. See lessons.
+- **Open threads:**
+  1. Johan to review the branch, then commit and push to deploy.
+  2. Owner to confirm the removed claims and whether "decanter" is the right word for the 500ml pack.
+  3. Shipping page still promises same-day dispatch before 2pm, which sits oddly with a pre-order-by-email flow. Copy decision for the owner.
+  4. Still open from April: Formspree ID, favicon, legal pages, sitemap and robots, OG image, Product JSON-LD, reviews widget.
+  5. Delete unused generated images and the stray root-level screenshots once the branch is approved.
+
 ## 2026-04-17 — Credibility pass: honest CTAs, real metadata, logo wired
 
 Review against live site flagged five launch blockers. Fixed all five in one pass.
