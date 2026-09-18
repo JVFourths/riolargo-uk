@@ -1,3 +1,11 @@
+## 2026-09-18 — riolargo.co.uk already exists and serves a different, older site
+
+- Johan confirmed the domain is owned. Checked: nameservers are Cloudflare (bethany/dan), apex and www both return 200.
+- **Finding:** the domain does not serve this repo's build. It serves an older server-rendered Next.js Rio Largo site (`x-powered-by: Next.js`, headline "Pressed this year. Not last.", nav Home / Shop / The Advantage / Our Story / Awards / Shipping, and a live `/admin` route). That matches the Stripe/D1 e-commerce build removed from this repo in April, probably running as a Worker.
+- The `riolargo-uk` Pages project has only `riolargo-uk.pages.dev` attached, no custom domain, and no Git provider (confirms direct upload).
+- **Not done, needs Johan's go-ahead:** moving riolargo.co.uk to the new site replaces a live site and its admin. wrangler has no command for Pages custom domains, so it is a dashboard job: Workers & Pages > riolargo-uk > Custom domains > add `riolargo.co.uk` and `www.riolargo.co.uk`, after removing the domain/route from whatever currently holds it.
+- Note: the old site's "southern hemisphere harvest, fresh when northern oil is stale" angle is a strong selling point that the new site lacks. Worth carrying over once the owner confirms the harvest months.
+
 ## 2026-09-18 — Deployed to production; Cloudflare plugin installed
 
 - Johan re-authenticated wrangler as johan@jkmv.co.uk. Built and ran `wrangler pages deploy out --project-name riolargo-uk --branch master`. 126 files uploaded.
