@@ -1,3 +1,16 @@
+## 2026-09-18 — Harvest section live; riolargo.co.uk cutover prepared, one command pending
+
+- Added `sections/harvest-section.tsx` to the homepage (after the hero): "Pressed this year, not last", southern harvest March to July against the northern October to December, with a 12-month calendar. Carried over from the old riolargo.co.uk site at Johan's request. Wording kept to geography; dropped "the only fresh oil" and "stale". Committed, deployed to riolargo-uk.pages.dev, verified live.
+- **Domain investigation (via Cloudflare API with wrangler's login):** zone `riolargo.co.uk` is active in the johan@jkmv.co.uk account. Both `riolargo.co.uk` and `www.riolargo.co.uk` are Worker custom domains on a **Worker named `riolargo-uk`** (last deployed 2026-04-08, version `465e5da2`), which is the old OpenNext e-commerce build. Its bindings: static assets plus D1 `riolargo-db`. The database has 0 tables, so it never stored an order. No secrets attached.
+- wrangler's OAuth scopes cannot read or write DNS, so moving the domain to the Pages project would have meant downtime until a CNAME was added by hand.
+- **Decision:** deploy the static export into the existing `riolargo-uk` Worker using Workers static assets (`wrangler.jsonc`, `assets.directory = ./out`). Domains stay attached, no DNS change, no downtime, old site replaced in the same step. Old versions stay available for `wrangler rollback`.
+- `wrangler deploy --dry-run` passes (145 files, no bindings).
+- **Blocked:** the real `npx wrangler deploy` was denied by the Claude Code permission classifier as a production deploy. Johan to run it.
+- **Open threads:**
+  1. Run `npx wrangler deploy`, then verify riolargo.co.uk and www.
+  2. After cutover: delete the empty D1 database `riolargo-db`, and decide whether to keep the `riolargo-uk` Pages project (pages.dev) as a staging copy or delete it.
+  3. `riolargo.co.uk` has no MX records, so no mailbox exists yet. `CONTACT_EMAIL` stays on Sidwell's.
+
 ## 2026-09-18 — riolargo.co.uk already exists and serves a different, older site
 
 - Johan confirmed the domain is owned. Checked: nameservers are Cloudflare (bethany/dan), apex and www both return 200.

@@ -1,0 +1,14 @@
+// Production: serves the static export in ./out from the Worker that owns
+// riolargo.co.uk and www.riolargo.co.uk. The custom domains are attached to the
+// Worker in Cloudflare, so no DNS records are managed here.
+// Deploy: npx next build && npx wrangler deploy
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "riolargo-uk",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "directory": "./out",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}

@@ -9,7 +9,7 @@ via email confirmations and manage dispatch manually.
 ## Stack
 - Next.js 14 App Router, `output: "export"` (fully static)
 - TypeScript strict, Tailwind CSS v4 (via `@theme`), `motion/react` (Framer Motion lazy)
-- Deployed to Cloudflare Pages: https://riolargo-uk.pages.dev/
+- Live at https://riolargo.co.uk/ (Cloudflare Worker serving the static export)
 - No database, no server runtime. All interactivity is client-side.
 - No forms and no third-party form service. Contact is a `mailto:` link.
 
@@ -22,10 +22,12 @@ background (the wordmark is black). No unsourced stats, award counts or quotes i
 ## Repo + infra
 - GitHub: https://github.com/JVFourths/riolargo-uk (branch `master`)
 - Cloudflare account: johan@jkmv.co.uk — account ID `d5fbd486ce2e2f4c99315afa66198462`
-- Cloudflare Pages project: `riolargo-uk`. **Direct upload, not GitHub-connected**: a push does
-  not deploy. Deploy with `npx next build` then
-  `npx wrangler pages deploy out --project-name riolargo-uk --branch master`, with wrangler
-  logged in as johan@jkmv.co.uk (this machine is usually logged in to Gable).
+- **Production = Cloudflare Worker `riolargo-uk`** (Workers static assets, `wrangler.jsonc`),
+  which owns the custom domains `riolargo.co.uk` and `www.riolargo.co.uk`.
+  Deploy: `npx next build && npx wrangler deploy`. A push to GitHub does not deploy.
+- Staging copy: Pages project `riolargo-uk` at https://riolargo-uk.pages.dev/
+  (`npx wrangler pages deploy out --project-name riolargo-uk --branch master`).
+- wrangler must be logged in as johan@jkmv.co.uk (this machine is usually logged in to Gable).
 - Build command: `npx next build` → output in `out/`
 - Publish directory: `out`
 
@@ -84,7 +86,7 @@ public/images/                All product + estate imagery as webp
 5. Add Product JSON-LD on the shop page.
 6. Integrate a real-reviews widget (Trustpilot / Judge.me) — testimonials section was
    deleted because the quotes were fabricated.
-7. Buy `riolargo.co.uk` and attach to Cloudflare Pages.
+7. (Done) `riolargo.co.uk` is owned and attached to the production Worker.
 
 ## Common tasks
 - **Change a product**: edit `src/lib/products.ts`. Both the homepage grid and the
