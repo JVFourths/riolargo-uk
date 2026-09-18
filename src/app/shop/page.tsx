@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import ShopContent from "./shop-content";
+import { JsonLd } from "@/components/json-ld";
+import { shopSchema } from "@/lib/structured-data";
 
 export const metadata: Metadata = {
   title: "Shop | Rio Largo Extra Virgin Olive Oil",
@@ -14,5 +16,10 @@ export const metadata: Metadata = {
 };
 
 export default function ShopPage() {
-  return <ShopContent />;
+  return (
+    <>
+      <JsonLd data={shopSchema} />
+      <ShopContent />
+    </>
+  );
 }

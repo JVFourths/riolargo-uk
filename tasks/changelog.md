@@ -1,3 +1,15 @@
+## 2026-09-18 — Privacy page and product markup
+
+- **Privacy page** at `/privacy` (footer link, sitemap, canonical). Written from checked facts: the live site sends no `Set-Cookie`, the built pages reference no third-party hosts (fonts are self-hosted by `next/font`), and there are no forms. Covers hosting by Cloudflare, ordering handled by Sidwell's, email going to Sidwell's, UK GDPR rights and the ICO. Controller given as Sidwell's, 124 City Road, London EC1V 2NX (from sidwells.net footer). A comment in `privacy-content.tsx` says the page must change in the same commit as any future analytics, form or embed.
+- **Structured data:** `src/lib/structured-data.ts` + `components/json-ld.tsx`. Shop page emits a schema.org `Product` per item (name, description, absolute image, size, brand, country of origin, `Offer` with GBP price, availability from `products.ts`, seller Sidwell's, offer URL = the Sidwell's product page). Every page emits `WebSite` and `Brand`. All values derive from `products.ts` and `site.ts`, so markup cannot drift from the page. `<` is escaped in the payload.
+- Verified: `tsc` clean, `next build` green (14 static outputs), JSON-LD parsed back out of `out/shop.html` and checked (4 products, right prices and URLs), privacy page screenshot at 1440 and no overflow at 390.
+- **Finding for Mike:** sidwells.net has a terms page but no privacy policy that I could find (`/privacy-policy` and `/privacy` both 404, none linked in the footer). A shop taking names, addresses and card payments needs one under UK GDPR. Linked to their terms from our privacy page in the meantime.
+- **Open threads:**
+  1. Deploy: `npx wrangler deploy` (Johan).
+  2. After deploy, test https://riolargo.co.uk/shop in Google's Rich Results Test.
+  3. Confirm Belle Fiore stock; `available: false` flips its markup to OutOfStock.
+  4. Product markup has no shipping or returns details yet (Google lists them as optional). Add once Sidwell's delivery pricing is confirmed.
+
 ## 2026-09-18 — Google Search Console set up, sitemap submitted
 
 - Done through Chrome (Claude in Chrome), signed in as Johan's personal Google account (johanjavisser@gmail.com).

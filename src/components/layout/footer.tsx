@@ -19,7 +19,10 @@ const footerLinks = [
   },
   {
     title: "Help",
-    links: [{ href: "/contact", label: "Contact us" }],
+    links: [
+      { href: "/contact", label: "Contact us" },
+      { href: "/privacy", label: "Privacy" },
+    ],
   },
 ];
 

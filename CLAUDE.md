@@ -62,6 +62,7 @@ src/
     products.ts               Single source of truth for the 3 SKUs + waitlist items
     endpoints.ts              CONTACT_EMAIL (Sidwell's address until a Rio Largo mailbox exists)
     site.ts                   SITE_URL + route list (canonical, sitemap, robots)
+    structured-data.ts        schema.org Product/WebSite/Brand, derived from products.ts
     utils.ts                  cn() helper
 public/images/                Only the webp images the site uses
 assets-src/                   Raw image sources (source/ is gitignored). Never put raw files in public/.
@@ -83,9 +84,10 @@ assets-src/                   Raw image sources (source/ is gitignored). Never p
 ## Before the site takes real traffic
 1. (Done differently) No Formspree: contact is a mailto link, ordering is on sidwells.net.
 2. Create a favicon and drop it in `src/app/favicon.ico`.
-3. Add legal pages (privacy / terms / cookies) — not yet in scope.
+3. (Done) `/privacy`. It states the site sets no cookies, runs no tracking and has no forms:
+   update it in the same commit if that ever stops being true.
 4. Add `app/sitemap.ts`, `app/robots.ts`, OG image in `src/app/`.
-5. Add Product JSON-LD on the shop page.
+5. (Done) Product JSON-LD on the shop page.
 6. Integrate a real-reviews widget (Trustpilot / Judge.me) — testimonials section was
    deleted because the quotes were fabricated.
 7. (Done) `riolargo.co.uk` is owned and attached to the production Worker.

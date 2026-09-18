@@ -4,6 +4,8 @@ import { MotionProvider } from "@/components/motion-config";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { SITE_URL } from "@/lib/site";
+import { JsonLd } from "@/components/json-ld";
+import { siteSchema } from "@/lib/structured-data";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -57,6 +59,7 @@ export default function RootLayout({
         >
           Skip to content
         </a>
+        <JsonLd data={siteSchema} />
         <MotionProvider>
           <Header />
           <main id="main">{children}</main>
