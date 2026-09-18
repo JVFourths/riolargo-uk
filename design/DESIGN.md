@@ -79,6 +79,8 @@ Body copy never runs wider than `--container-measure` (38rem, about 68 character
 
 **Forms.** Label above the field in Hanken 600 0.875rem Ink. Field: Paper raised, 1px Rule strong, 48px tall, Ink text. Focus: Ink border plus the 2px outline. Errors sit under the field in Danger with an explicit message.
 
+**Harvest calendar.** Twelve month cells in a framed Paper raised panel, two rows: Fox cells for Rio Largo (March to July), Ink muted cells for the northern harvest (October to December). Exposed to screen readers as one labelled image.
+
 **Ledger list.** Used instead of feature cards: rows split by hairlines, a numeral on the left, a title and one or two sentences on the right. No icons.
 
 ## 6. Motion
@@ -123,4 +125,5 @@ Sentence case. No unverified numbers or quotes.
 **Provenance.** Generated 2026-09-18 with `design-forge`. Sources read: `public/images/logo-500w.webp`, `bottle-500ml-800w.webp`, `source/pro-shot.webp`, `source/hero-slider-1.png`, `source/estate-recent.jpg` (brand colours and label typography), riolargo.co.za homepage (voice and verifiable claims). Database query: `ui-ux-pro-max` "artisan food olive oil estate ecommerce warm editorial mediterranean sunlit" returned Exaggerated Minimalism with Cinzel / Josefin Sans and a pink accent; kept its oversized type and negative space, replaced fonts and palette with ones drawn from the packaging. Logged in `~/.claude/design-log.md`.
 
 **Changelog.**
+- 2026-09-18: added the harvest calendar component (homepage "southern advantage" section).
 - 2026-09-18: first version. Replaces the undocumented dark theme (`#0C0C0C`, gold `#C9A84C`, Playfair Display, DM Sans).

@@ -46,6 +46,7 @@ src/
     layout/{header,footer}.tsx
     sections/                 Homepage sections
       hero.tsx
+      harvest-section.tsx     Southern-hemisphere harvest pitch + month calendar
       products-grid.tsx       Reads src/lib/products.ts
       about-section.tsx
       awards.tsx
